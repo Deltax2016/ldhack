@@ -16,6 +16,12 @@ import grey from '@material-ui/core/colors/grey';
 import background from "./BACKGROUND.png";
 import green from '@material-ui/core/colors/green';
 import Grid from '@material-ui/core/Grid';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,10 +32,21 @@ const useStyles = makeStyles((theme) => ({
    large: {
     width:80,
     marginTop:'2vh',
+    marginLeft: theme.spacing(12),
     height:'70px',
-    marginLeft: 215,
     borderRadius: 15,
 
+  },
+    formControl: {
+    marginTop:'2vh',
+    marginLeft: theme.spacing(3),
+    minWidth: 120,
+    border: '2px solid #9e9e9e',
+    borderRadius: 15,
+
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
   box: {
       backgroundColor: 'white',
@@ -176,8 +193,13 @@ const rowsSec = [
 export default function DataTable() {
   const classes = useStyles();
 
-  const [rowz,setRowz] = React.useState(rows);
-  const [columz,setColumz] = React.useState(columns);
+    var RealRow = [{id: ""}];
+    var PredicRow = {id: ""};
+    var ColumnReal = [{field: 'id', headerName: 'Год'}];
+    const [rowz,setRowz] = React.useState(RealRow);
+    const [columz,setColumz] = React.useState(ColumnReal);
+  
+ 
   const [Json,setJson] = React.useState({});
 
   async function getJson() {
@@ -187,8 +209,9 @@ export default function DataTable() {
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
       // получаем тело ответа (см. про этот метод ниже)
       let json = await response.json();
-      console.log(json.all_real);
+      console.log(json);
       setJson(json);
+
     } else {
       alert("Ошибка HTTP: " + response.status);
     }
@@ -197,19 +220,60 @@ export default function DataTable() {
     getJson();
   },[]);
 
-  function func() {
-      setRowz(Json.all_real);
+    const [jsonTable, setJsTable] = React.useState('');
+
+    
+    const handleChange = (event) => {
+      setJsTable(event.target.value);
+      //funcReal();
+      //funcPrediction();
+    };
+
+
+
+  function getJsValue()
+  {
+    console.log(jsonTable);
+    if (jsonTable === 0)
+    {
+        RealRow = Json.all_real;
+        PredicRow = Json.all_prediction;
+    }
+    if (jsonTable === 1)
+    {
+        RealRow = Json.all_real;
+        PredicRow = Json.all_prediction;
+    }
+    if (jsonTable === 2)
+    {
+        RealRow = Json.ndfl_real;
+        PredicRow = Json.ndfl_prediction;
+    }
+    if (jsonTable === 3)
+    {
+        RealRow = Json.npo_real;
+        PredicRow = Json.npo_prediction;
+    }
+  }
+
+
+  function funcReal() {
+      getJsValue();
+      setRowz(RealRow);
+
       var list = [];
-      for (var i in Json.all_real[0]) {
+      for (var i in RealRow[0]) {
         console.log(i)
         list.push({ field: i, headerName: i, width: 200},);
       }
       setColumz(list);
     }
-    function func2() {
-    setRowz(Json.all_prediction);
+
+    function funcPrediction() {
+      getJsValue();
+      setRowz(PredicRow);
       var list = [];
-      for (var i in Json.all_prediction[0]) {
+      for (var i in PredicRow[0]) {
         console.log(i)
         list.push({ field: i, headerName: i, width: 200},);
       }
@@ -274,9 +338,41 @@ export default function DataTable() {
 
               <Card className={classes.root}>
               <CardActionArea>
+              <div style={{display:'flex'}}>
+                <FormControl variant="filled" className={classes.formControl}>
+                <InputLabel id="filled-age-native-simple" style={{color:"#e0e0e0"}}>Таблица</InputLabel>
+                <Select
+                  labelId="filled-age-native-simple"
+                  id="filled-age-native-simple"
+                  value={jsonTable}
+                  onChange={handleChange}
+                  label="jsTable"
+                >
+                  <MenuItem value={0}>
+                    <em>-</em>
+                  </MenuItem>
+                  <MenuItem value={1}>
+                    <Typography style={{color:"#9e9e9e"}}>
+                      Все
+                    </Typography></MenuItem>
+                   <MenuItem value={2}>
+                    <Typography style={{color:"#9e9e9e"}}>
+                      НДФЛ
+                    </Typography></MenuItem>
+                    <MenuItem value={3}>
+                    <Typography style={{color:"#9e9e9e"}}>
+                      НПО
+                    </Typography></MenuItem>
+                    <MenuItem value={10}>
+                    <Typography style={{color:"#9e9e9e"}}>
+                      Расходы
+                    </Typography></MenuItem>
+                </Select>
+              </FormControl>
                 <Avatar variant="rounded" className={classes.large}/>
-
+                 </div>
                   <CardContent>
+
                     <Typography align="right" variant="h6" component="h4" className={classes.text}>
                       Ваше Имя
                     </Typography>
@@ -284,15 +380,18 @@ export default function DataTable() {
                       Компания
                     </Typography>
                   </CardContent>
+
                 </CardActionArea>
+                
+
                 <CardActions>
-                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>func2()}>
-                    Таблица НПО
+                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>funcPrediction()}>
+                    Реальные данные
                   </Button>
                 </CardActions>
                          <CardActions>
-                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>func()}>
-                    Таблица НДФЛ
+                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>funcReal()}>
+                    Предсказания
                   </Button>
                 </CardActions>
                          <CardActions>
