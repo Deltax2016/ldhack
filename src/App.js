@@ -194,9 +194,16 @@ export default function DataTable() {
   const classes = useStyles();
 
   const [RealRow, setRealRow] = React.useState([{id: ""}]);
-  var PredicRow = {id: ""};
+
+  const [RealRowT, setRealRowT] = React.useState([{id: ""}]);
+  const [PredicRow, setPredRow] = React.useState([{id: ""}]);
+
   var ColumnReal = [{field: 'id', headerName: 'Год'}];
   const [rowz,setRowz] = React.useState(RealRow);
+
+  const [rowzT,setRowzT] = React.useState(RealRowT);
+  const [predrowz,setRowzPred] = React.useState(PredicRow);
+
   const [columz,setColumz] = React.useState(ColumnReal);
   const [jsonTable, setJsTable] = React.useState('');
   const [Json,setJson] = React.useState({});
@@ -208,7 +215,7 @@ export default function DataTable() {
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
       // получаем тело ответа (см. про этот метод ниже)
       let json = await response.json();
-      //console.log(json);
+      console.log(json);
       setJson(json);
 
     } else {
@@ -221,16 +228,16 @@ export default function DataTable() {
     
     const handleChange = (event) => {
       setJsTable(event.target.value.toString());
-      console.log(event.target.value);
+      //console.log(event.target.value);
       funcReal(event.target.value.toString());
-      funcPrediction(event.target.value.toString());
+      //funcPrediction(event.target.value.toString());
     };
 
 
 
   function getJsValue(val)
   {
-    console.log(Json, val);
+    //console.log(Json, val);
     if (val === '0')
     {
         return [Json.all_real, Json.all_prediction];
@@ -255,10 +262,12 @@ export default function DataTable() {
 
     let rows = getJsValue(val);
     setRowz(rows[0]);
+    setRowzPred(rows[1]);
+    setRowzT(rows[0]);
 
     var list = [];
     for (var i in rows[0][0]) {
-      console.log(i)
+      //console.log(i)
       list.push({ field: i, headerName: i, width: 200},);
     }
     setColumz(list);
@@ -268,10 +277,13 @@ export default function DataTable() {
     if (val === undefined) val = jsonTable;
     let rows = getJsValue(val);
     setRowz(rows[1]);
+    setRowzPred(rows[1]);
+    setRowzT(rows[0]);
+
 
     var list = [];
     for (var i in rows[1][0]) {
-      console.log(i)
+      //console.log(i)
       list.push({ field: i, headerName: i, width: 200},);
     }
     setColumz(list);
@@ -400,10 +412,10 @@ export default function DataTable() {
         </div>
         <div style= {chartBoxSec} >
           <div style= {BarBox}>
-            <Bars labels={rowsSec.map((it)=> it.id.toString())} data={rows.map((it)=> it.age)} dataNDFL={rowsSec.map((it)=> it.d)}/>
+            <Bars labels={rowzT.map((it)=> it.id.toString())} data={rowzT.map((it)=> it.Значение)} dataNDFL={predrowz.map((it)=> it.Значение)}/>
           </div>
           <div style= {BarBox}>
-            <Line labels={rowsSec.map((it)=> it.id.toString())} data={rows.map((it)=> it.age)} dataNDFL={rowsSec.map((it)=> it.d)}/>
+            <Line labels={rowzT.map((it)=> it.id.toString())} data={rowzT.map((it)=> it.Значение)} dataNDFL={predrowz.map((it)=> it.Значение)}/>
           </div>
         </div>
     </div>

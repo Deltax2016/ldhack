@@ -13,12 +13,12 @@ function Bars(props) {
 	data={{
         labels: labels,
         datasets: [{
-          label: "НПО",
+          label: "Реальные значения",
           type: "bar",
           backgroundColor: "rgba(255, 170, 8, 1)",
           data: data,
         }, {
-          label: "НДФЛ",
+          label: "Предсказание",
           type: "bar",
           backgroundColor: green[600],
           backgroundColorHover: "#3e95cd",
@@ -38,7 +38,7 @@ function Bars(props) {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Значения НПО/НДФЛ в рублях'
+                        text: 'Ступенчатая диаграмма'
                     }
                 },
                 legend: {

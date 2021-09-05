@@ -10,12 +10,12 @@ function Lines(props){
 	data={{
         labels: labels,
         datasets: [{
-          label: "НПО",
+          label: "Реальные значения",
           type: "line",
           backgroundColor: "rgba(255, 170, 8, 1)",
           data: data,
         }, {
-          label: "НДФЛ",
+          label: "Предсказания",
           type: "line",
           backgroundColor: green[600],
           backgroundColorHover: "#3e95cd",
@@ -35,7 +35,7 @@ function Lines(props){
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Значения НПО/НДФЛ в рублях'
+                        text: 'Линейный график'
                     }
                 }
             }}
