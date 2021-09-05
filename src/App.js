@@ -193,13 +193,12 @@ const rowsSec = [
 export default function DataTable() {
   const classes = useStyles();
 
-    var RealRow = [{id: ""}];
-    var PredicRow = {id: ""};
-    var ColumnReal = [{field: 'id', headerName: 'Год'}];
-    const [rowz,setRowz] = React.useState(RealRow);
-    const [columz,setColumz] = React.useState(ColumnReal);
-  
- 
+  const [RealRow, setRealRow] = React.useState([{id: ""}]);
+  var PredicRow = {id: ""};
+  var ColumnReal = [{field: 'id', headerName: 'Год'}];
+  const [rowz,setRowz] = React.useState(RealRow);
+  const [columz,setColumz] = React.useState(ColumnReal);
+  const [jsonTable, setJsTable] = React.useState('');
   const [Json,setJson] = React.useState({});
 
   async function getJson() {
@@ -209,7 +208,7 @@ export default function DataTable() {
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
       // получаем тело ответа (см. про этот метод ниже)
       let json = await response.json();
-      console.log(json);
+      //console.log(json);
       setJson(json);
 
     } else {
@@ -219,65 +218,63 @@ export default function DataTable() {
   React.useEffect(()=>{
     getJson();
   },[]);
-
-    const [jsonTable, setJsTable] = React.useState('');
-
     
     const handleChange = (event) => {
-      setJsTable(event.target.value);
-      //funcReal();
-      //funcPrediction();
+      setJsTable(event.target.value.toString());
+      console.log(event.target.value);
+      funcReal(event.target.value.toString());
+      funcPrediction(event.target.value.toString());
     };
 
 
 
-  function getJsValue()
+  function getJsValue(val)
   {
-    console.log(jsonTable);
-    if (jsonTable === 0)
+    console.log(Json, val);
+    if (val === '0')
     {
-        RealRow = Json.all_real;
-        PredicRow = Json.all_prediction;
+        return [Json.all_real, Json.all_prediction];
     }
-    if (jsonTable === 1)
+    if (val === '1')
     {
-        RealRow = Json.all_real;
-        PredicRow = Json.all_prediction;
+        return [Json.all_real, Json.all_prediction];
     }
-    if (jsonTable === 2)
+    if (val === '2')
     {
-        RealRow = Json.ndfl_real;
-        PredicRow = Json.ndfl_prediction;
+        return [Json.ndfl_real, Json.ndfl_prediction];
     }
-    if (jsonTable === 3)
+    if (val === '3')
     {
-        RealRow = Json.npo_real;
-        PredicRow = Json.npo_prediction;
+        return [Json.npo_real, Json.npo_prediction];
     }
   }
 
 
-  function funcReal() {
-      getJsValue();
-      setRowz(RealRow);
+  function funcReal(val) {
+    if (val === undefined) val = jsonTable;
 
-      var list = [];
-      for (var i in RealRow[0]) {
-        console.log(i)
-        list.push({ field: i, headerName: i, width: 200},);
-      }
-      setColumz(list);
+    let rows = getJsValue(val);
+    setRowz(rows[0]);
+
+    var list = [];
+    for (var i in rows[0][0]) {
+      console.log(i)
+      list.push({ field: i, headerName: i, width: 200},);
     }
+    setColumz(list);
+  }
 
-    function funcPrediction() {
-      getJsValue();
-      setRowz(PredicRow);
-      var list = [];
-      for (var i in PredicRow[0]) {
-        console.log(i)
-        list.push({ field: i, headerName: i, width: 200},);
-      }
-      setColumz(list);
+  function funcPrediction(val) {
+    if (val === undefined) val = jsonTable;
+    let rows = getJsValue(val);
+    setRowz(rows[1]);
+
+    var list = [];
+    for (var i in rows[1][0]) {
+      console.log(i)
+      list.push({ field: i, headerName: i, width: 200},);
+    }
+    setColumz(list);
   }
   const chartBox = {
     width: '100%',
@@ -385,12 +382,12 @@ export default function DataTable() {
                 
 
                 <CardActions>
-                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>funcPrediction()}>
+                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>funcReal()}>
                     Реальные данные
                   </Button>
                 </CardActions>
                          <CardActions>
-                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>funcReal()}>
+                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>funcPrediction()}>
                     Предсказания
                   </Button>
                 </CardActions>
