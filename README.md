@@ -9,6 +9,6 @@
 
 ## DEMO
 
-![alt text](https://imgur.com/XtvIDkZ)
+![alt text](https://imgur.com/XtvIDkZ.png)
 
 
