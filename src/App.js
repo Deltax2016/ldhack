@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
    large: {
     width:80,
     marginTop:'2vh',
-    height:'13vh',
+    height:'70px',
     marginLeft: 215,
     borderRadius: 15,
 
@@ -215,7 +215,7 @@ export default function DataTable() {
   }
   const Allign = 
   {
-    height: '300px',
+    height: '320px',
     width:'60%', 
     alignItems: 'center', 
     justifyContent: 'center',
