@@ -178,14 +178,42 @@ export default function DataTable() {
 
   const [rowz,setRowz] = React.useState(rows);
   const [columz,setColumz] = React.useState(columns);
+  const [Json,setJson] = React.useState({});
+
+  async function getJson() {
+    let url = 'https://b61f-62-84-114-189.ngrok.io/all'
+    let response = await fetch(url);
+
+    if (response.ok) { // если HTTP-статус в диапазоне 200-299
+      // получаем тело ответа (см. про этот метод ниже)
+      let json = await response.json();
+      console.log(json.all_real);
+      setJson(json);
+    } else {
+      alert("Ошибка HTTP: " + response.status);
+    }
+  }
+  React.useEffect(()=>{
+    getJson();
+  },[]);
 
   function func() {
-      setRowz(rowsSec);
-      setColumz(columnsSec);
+      setRowz(Json.all_real);
+      var list = [];
+      for (var i in Json.all_real[0]) {
+        console.log(i)
+        list.push({ field: i, headerName: i, width: 200},);
+      }
+      setColumz(list);
     }
     function func2() {
-    setRowz(rows);
-    setColumz(columns);
+    setRowz(Json.all_prediction);
+      var list = [];
+      for (var i in Json.all_prediction[0]) {
+        console.log(i)
+        list.push({ field: i, headerName: i, width: 200},);
+      }
+      setColumz(list);
   }
   const chartBox = {
     width: '100%',
