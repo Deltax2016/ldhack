@@ -3,7 +3,7 @@ import {Line} from 'react-chartjs-2';
 import green from '@material-ui/core/colors/green';
 
 function Lines(props){
-    const {labels, data, dataNDFL} = props;
+    const {labels, data, dataNDFL, dataRisk} = props;
 	return (
 	<div style={{width: '40vw', height:'44vh'}}>
 	<Line
@@ -20,6 +20,12 @@ function Lines(props){
           backgroundColor: green[600],
           backgroundColorHover: "#3e95cd",
           data: dataNDFL
+        }, {
+          label: "Риски",
+          type: "line",
+          backgroundColor: '#f44336',
+          backgroundColorHover: "#f44336",
+          data: dataRisk,
         }
       ]
     }}

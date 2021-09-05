@@ -194,12 +194,14 @@ export default function DataTable() {
   const classes = useStyles();
 
   const [RealRow, setRealRow] = React.useState([{id: ""}]);
+  const [RiskRow, setRiskRow] = React.useState([{id: ""}]);
 
   const [RealRowT, setRealRowT] = React.useState([{id: ""}]);
   const [PredicRow, setPredRow] = React.useState([{id: ""}]);
 
   var ColumnReal = [{field: 'id', headerName: 'Год'}];
   const [rowz,setRowz] = React.useState(RealRow);
+  const [rowzRisk,setRowzRisk] = React.useState(RiskRow);
 
   const [rowzT,setRowzT] = React.useState(RealRowT);
   const [predrowz,setRowzPred] = React.useState(PredicRow);
@@ -240,19 +242,23 @@ export default function DataTable() {
     //console.log(Json, val);
     if (val === '0')
     {
-        return [Json.all_real, Json.all_prediction];
+        return [Json.all_real, Json.all_prediction, Json.all_risk];
     }
     if (val === '1')
     {
-        return [Json.all_real, Json.all_prediction];
+        return [Json.all_real, Json.all_prediction, Json.all_risk];
     }
     if (val === '2')
     {
-        return [Json.ndfl_real, Json.ndfl_prediction];
+        return [Json.ndfl_real, Json.ndfl_prediction, Json.ndfl_risk];
     }
     if (val === '3')
     {
-        return [Json.npo_real, Json.npo_prediction];
+        return [Json.npo_real, Json.npo_prediction, Json.npo_risk];
+    }
+    if (val === '4')
+    {
+      return [Json.expenses_real, Json.expenses_prediction, Json.expenses_risk];
     }
   }
 
@@ -264,6 +270,7 @@ export default function DataTable() {
     setRowz(rows[0]);
     setRowzPred(rows[1]);
     setRowzT(rows[0]);
+    setRowzRisk(rows[2]);
 
     var list = [];
     for (var i in rows[0][0]) {
@@ -279,6 +286,7 @@ export default function DataTable() {
     setRowz(rows[1]);
     setRowzPred(rows[1]);
     setRowzT(rows[0]);
+    setRowzRisk(rows[2]);
 
 
     var list = [];
@@ -288,6 +296,21 @@ export default function DataTable() {
     }
     setColumz(list);
   }
+
+  function funcRiskTable(val){
+    if (val === undefined) val = jsonTable;
+
+    let rows = getJsValue(val);
+     setRowz(rows[2]);
+      var list = [];
+      for (var i in Json.expenses_risk[0]) {
+        //console.log(i)
+        list.push({ field: i, headerName: i, width: 200},);
+      }
+      setColumz(list);
+
+  }
+
   const chartBox = {
     width: '100%',
     marginTop:'2vh',
@@ -372,7 +395,7 @@ export default function DataTable() {
                     <Typography style={{color:"#9e9e9e"}}>
                       НПО
                     </Typography></MenuItem>
-                    <MenuItem value={10}>
+                    <MenuItem value={4}>
                     <Typography style={{color:"#9e9e9e"}}>
                       Расходы
                     </Typography></MenuItem>
@@ -383,10 +406,10 @@ export default function DataTable() {
                   <CardContent>
 
                     <Typography align="right" variant="h6" component="h4" className={classes.text}>
-                      Ваше Имя
+                      Мария Фул-стэк
                     </Typography>
                     <Typography align="right" variant="p" component="p" className={classes.text}>
-                      Компания
+                      Gaijin
                     </Typography>
                   </CardContent>
 
@@ -404,7 +427,7 @@ export default function DataTable() {
                   </Button>
                 </CardActions>
                          <CardActions>
-                  <Button variant="outlined" size="medium" className={classes.buttRisk}>
+                  <Button variant="outlined" size="medium" className={classes.buttRisk} onClick={()=>funcRiskTable()}>
                     Оцените Риски
                   </Button>
                 </CardActions>
@@ -412,10 +435,10 @@ export default function DataTable() {
         </div>
         <div style= {chartBoxSec} >
           <div style= {BarBox}>
-            <Bars labels={rowzT.map((it)=> it.id.toString())} data={rowzT.map((it)=> it.Значение)} dataNDFL={predrowz.map((it)=> it.Значение)}/>
+            <Bars labels={rowzT.map((it)=> it.id.toString())} data={rowzT.map((it)=> it.Значение)} dataNDFL={predrowz.map((it)=> it.Значение)} dataRisk={rowzRisk.map((it)=> it.Значение)}/>
           </div>
           <div style= {BarBox}>
-            <Line labels={rowzT.map((it)=> it.id.toString())} data={rowzT.map((it)=> it.Значение)} dataNDFL={predrowz.map((it)=> it.Значение)}/>
+            <Line labels={rowzT.map((it)=> it.id.toString())} data={rowzT.map((it)=> it.Значение)} dataNDFL={predrowz.map((it)=> it.Значение)} dataRisk={rowzRisk.map((it)=> it.Значение)}/>
           </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ import green from '@material-ui/core/colors/green';
 defaults.font.size = 20;
 
 function Bars(props) {
-	const {labels, data, dataNDFL} = props;
+	const {labels, data, dataNDFL, dataRisk} = props;
 	return (
 	<div style={{width: '40vw', height:'44vh', justifyContent:'center'}}>
 	<Bar
@@ -23,6 +23,12 @@ function Bars(props) {
           backgroundColor: green[600],
           backgroundColorHover: "#3e95cd",
           data: dataNDFL,
+        }, {
+          label: "Риски",
+          type: "bar",
+          backgroundColor: '#f44336',
+          backgroundColorHover: "#f44336",
+          data: dataRisk,
         }
       ]
     }}
