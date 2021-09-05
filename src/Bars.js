@@ -8,7 +8,7 @@ defaults.font.size = 20;
 function Bars(props) {
 	const {labels, data, dataNDFL} = props;
 	return (
-	<div>
+	<div style={{width: '40vw', height:'44vh', justifyContent:'center'}}>
 	<Bar
 	data={{
         labels: labels,

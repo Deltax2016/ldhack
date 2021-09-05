@@ -5,7 +5,7 @@ import green from '@material-ui/core/colors/green';
 function Lines(props){
     const {labels, data, dataNDFL} = props;
 	return (
-	<div>
+	<div style={{width: '40vw', height:'44vh'}}>
 	<Line
 	data={{
         labels: labels,

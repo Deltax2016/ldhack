@@ -20,12 +20,12 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 350,
-    height: '40vh',
     backgroundColor: grey[800],
     borderRadius: 20,
   },
    large: {
-    width:100,
+    width:80,
+    marginTop:'2vh',
     height:'13vh',
     marginLeft: 215,
     borderRadius: 15,
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
     borderRadius: 15,
     border: '2px solid #00B337',
-    width: 400,
+    width: '20vw',
     '&:hover': {
       backgroundColor: green[600],
       borderColor: green[600],
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
     borderRadius: 15,
     border: '2px solid #FFA900',
-    width: 400,
+    width: '20vw',
     '&:hover': {
       backgroundColor: '#FFA900',
       borderColor: '#FFA900',
@@ -188,8 +188,9 @@ export default function DataTable() {
     setColumz(columns);
   }
   const chartBox = {
-    height: '48vh',
-    width: '100vw',
+    width: '100%',
+    marginTop:'2vh',
+    marginBottom:'2vh',
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
@@ -197,7 +198,6 @@ export default function DataTable() {
 
   }
   const chartBoxSec = {
-    height: '48vh',
     width: '100vw',
     position: 'relative',
     display: 'flex',
@@ -209,23 +209,23 @@ export default function DataTable() {
     backgroundImage: `url(${background})`,
     position: 'absolute',
     bottom: 0,
-    top: 0
+    top: 0,
+    justifyContent:'center',
+    alignItems: 'center',
   }
   const Allign = 
   {
-    height: '40vh',
+    height: '300px',
     width:'60%', 
     alignItems: 'center', 
     justifyContent: 'center',
   }
   const  BarBox = {
-        height: '42vh',
-        width: '700px',
-        padding: '10px',
-        backgroundColor: 'white',
-        border: '2px solid #00B337',
-        borderRadius: '20px',
-      }
+    padding: '10px',
+    backgroundColor: 'white',
+    border: '2px solid #00B337',
+    borderRadius: '20px',
+  }
 
   return (
    <Grid container   direction="row-reverse" justifyContent="space-around" alignItems="center">
@@ -245,36 +245,36 @@ export default function DataTable() {
 
 
               <Card className={classes.root}>
-                <CardActionArea>
+              <CardActionArea>
                 <Avatar variant="rounded" className={classes.large}/>
 
                   <CardContent>
-                    <Typography align="right" variant="h5" component="h2" className={classes.text}>
+                    <Typography align="right" variant="h6" component="h4" className={classes.text}>
                       Ваше Имя
                     </Typography>
-                    <Typography align="right" variant="h6" component="p" className={classes.text}>
+                    <Typography align="right" variant="p" component="p" className={classes.text}>
                       Компания
                     </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
-                  <Button variant="outlined" size="large" className={classes.butt} onClick={()=>func2()}>
+                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>func2()}>
                     Таблица НПО
                   </Button>
                 </CardActions>
                          <CardActions>
-                  <Button variant="outlined" size="large" className={classes.butt} onClick={()=>func()}>
+                  <Button variant="outlined" size="medium" className={classes.butt} onClick={()=>func()}>
                     Таблица НДФЛ
                   </Button>
                 </CardActions>
                          <CardActions>
-                  <Button variant="outlined" size="large" className={classes.buttRisk}>
+                  <Button variant="outlined" size="medium" className={classes.buttRisk}>
                     Оцените Риски
                   </Button>
                 </CardActions>
               </Card>
         </div>
-        <div style= {chartBoxSec}>
+        <div style= {chartBoxSec} >
           <div style= {BarBox}>
             <Bars labels={rowsSec.map((it)=> it.id.toString())} data={rows.map((it)=> it.age)} dataNDFL={rowsSec.map((it)=> it.d)}/>
           </div>
