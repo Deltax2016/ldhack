@@ -303,7 +303,7 @@ export default function DataTable() {
     let rows = getJsValue(val);
      setRowz(rows[2]);
       var list = [];
-      for (var i in Json.expenses_risk[0]) {
+      for (var i in rows[2][0]) {
         //console.log(i)
         list.push({ field: i, headerName: i, width: 200},);
       }
