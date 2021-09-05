@@ -15,22 +15,19 @@ import Avatar from '@material-ui/core/Avatar';
 import grey from '@material-ui/core/colors/grey';
 import background from "./BACKGROUND.png";
 import green from '@material-ui/core/colors/green';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginLeft: theme.spacing(-10),
-
     maxWidth: 350,
-    height: 400,
+    height: '40vh',
     backgroundColor: grey[800],
     borderRadius: 20,
   },
    large: {
-    marginLeft: theme.spacing(26),
-    marginRight: theme.spacing(3),
-
-    width: theme.spacing(13),
-    height: theme.spacing(14),
+    width:100,
+    height:'13vh',
+    marginLeft: 215,
     borderRadius: 15,
 
   },
@@ -191,8 +188,18 @@ export default function DataTable() {
     setColumz(columns);
   }
   const chartBox = {
-    height: 'calc(48vh)',
+    height: '48vh',
     width: '100vw',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
+
+  }
+  const chartBoxSec = {
+    height: '48vh',
+    width: '100vw',
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly'
@@ -206,15 +213,13 @@ export default function DataTable() {
   }
   const Allign = 
   {
-    marginLeft: -20,
-
-    height: 400,
+    height: '40vh',
     width:'60%', 
     alignItems: 'center', 
     justifyContent: 'center',
-    paddingLeft:15,
   }
   const  BarBox = {
+        height: '42vh',
         width: '700px',
         padding: '10px',
         backgroundColor: 'white',
@@ -223,6 +228,7 @@ export default function DataTable() {
       }
 
   return (
+   <Grid container   direction="row-reverse" justifyContent="space-around" alignItems="center">
     <div style={GridBox}>
       <div style= {chartBox}>
 
@@ -236,6 +242,8 @@ export default function DataTable() {
                 disableSelectionOnClick
               />
           </div>
+
+
               <Card className={classes.root}>
                 <CardActionArea>
                 <Avatar variant="rounded" className={classes.large}/>
@@ -265,9 +273,8 @@ export default function DataTable() {
                   </Button>
                 </CardActions>
               </Card>
-
         </div>
-        <div style= {chartBox}>
+        <div style= {chartBoxSec}>
           <div style= {BarBox}>
             <Bars labels={rowsSec.map((it)=> it.id.toString())} data={rows.map((it)=> it.age)} dataNDFL={rowsSec.map((it)=> it.d)}/>
           </div>
@@ -275,6 +282,8 @@ export default function DataTable() {
             <Line labels={rowsSec.map((it)=> it.id.toString())} data={rows.map((it)=> it.age)} dataNDFL={rowsSec.map((it)=> it.d)}/>
           </div>
         </div>
-  </div>
+    </div>
+</Grid>
+
   );
 }
