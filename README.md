@@ -1,22 +1,13 @@
 
-# How to test it?
+# Как запустить наш прототип?
 
-## Run
-1) `npm install` to install all the necessary modules
-2) Login to your metamask, using special browser extention
-3) `cd './YOUR_PATH_HERE/justTask'`
-4) Use `npm run start` to start
-5) Wait few seconds
-6) Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## Use
-
-1) Click "Connect"
-2) Fun
+## Подготовка и запуск
+1) `npm install` для подкачки необходимых модулей
+2) Введите `npm run start` для того, чтобы начать
+3) Ждите несколько секунд :)
+4) Откройте [http://localhost:3000](http://localhost:3000), чтобы увидеть результат в браузере.
 
 ## DEMO
 
-U can view my demo: http://67cc828be5cd.ngrok.io/
-
-### P.S: The main web3 code in ./src/Utils.js
+![alt text](https://imgur.com/a/pDSU6OL)
 
