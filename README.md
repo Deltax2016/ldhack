@@ -9,5 +9,5 @@
 
 ## DEMO
 
-![alt text](https://imgur.com/a/pDSU6OL)
+![alt text](https://imgur.com/a/pDSU6OL.png)
 
