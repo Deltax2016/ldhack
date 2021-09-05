@@ -9,5 +9,5 @@
 
 ## DEMO
 
-![alt text](https://imgur.com/a/pDSU6OL.png)
+![alt text](https://github.com/Deltax2016/ldhack/edit/main/Screenshot from 2021-09-05 09-29-06.png?raw=true)
 
